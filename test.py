@@ -102,8 +102,8 @@ class Accounts:
             for i in range(Accounts.retries):
                 if (type(Account._meta.database).__name__ == "MySQLDatabase"):
                     a = Accounts.__get_query().order_by(fn.Rand()).get()
-            else:
-                a = Accounts.__get_query().order_by(fn.Random()).get()
+                else:
+                    a = Accounts.__get_query().order_by(fn.Random()).get()
 
             if a.claim():
                 return a
