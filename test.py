@@ -98,41 +98,41 @@ class Accounts:
 
     @staticmethod
     def get_random():
-        try:
-            for i in range(Accounts.retries):
+        for i in range(Accounts.retries):
+            try:
                 if (type(Account._meta.database).__name__ == "MySQLDatabase"):
                     a = Accounts.__get_query().order_by(fn.Rand()).get()
                 else:
                     a = Accounts.__get_query().order_by(fn.Random()).get()
 
-            if a.claim():
-                return a
-        except:
-            pass
+                if a.claim():
+                    return a
+            except:
+                pass
 
         return False
 
     @staticmethod
     def get_least_used():
-        try:
-            for i in range(Accounts.retries):
+        for i in range(Accounts.retries):
+            try:
                 a = Accounts.__get_query().order_by(Account.last_used_time).limit(1).get()
-            if a.claim():
-                return a
-        except:
-            pass
+                if a.claim():
+                    return a
+            except:
+                pass
 
         return False
 
     @staticmethod
     def get_most_used():
-        try:
-            for i in range(Accounts.retries):
+        for i in range(Accounts.retries):
+            try:
                 a = Accounts.__get_query().order_by(Account.last_used_time.desc()).limit(1).get()
-            if a.claim():
-                return a
-        except:
-            pass
+                if a.claim():
+                    return a
+            except:
+                pass
 
         return False
 
